@@ -17,5 +17,6 @@ module Shifter (
 
   //Main function
   /*your code here*/
+  assign result = (leftRight == 1'b0)? sftSrc << shamt : sftSrc >> shamt;
 
 endmodule
