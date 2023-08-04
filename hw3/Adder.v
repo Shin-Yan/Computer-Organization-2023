@@ -16,5 +16,8 @@ module Adder (
   //Main function
   /*your code here*/
 
+  assign sum_o = src1_i + src2_i;
 
 endmodule
+
+

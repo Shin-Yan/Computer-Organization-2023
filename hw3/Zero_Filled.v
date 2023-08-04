@@ -12,6 +12,14 @@ module Zero_Filled (
 
   //Zero_Filled
   /*your code here*/
+  assign data_o[15:0] = data_i[15:0];
 
+  genvar i;
+  generate
+    for(i = 16 ; i < 32 ; i = i+1)
+    begin
+      assign data_o[i] = 0;
+    end
+  endgenerate
 
 endmodule
