@@ -3,7 +3,7 @@
 `define END_COUNT 600
 `define NUM_OF_TEST_R_TYPE_ADDI 3
 `define NUM_OF_TEST_I_TYPE_JUMP 1
-`define NUM_OF_ADVANCED_SET 2
+`define NUM_OF_ADVANCED_SET 3
 `include "Simple_Single_CPU.v"
 
 module Testbench;
@@ -81,6 +81,7 @@ module Testbench;
         4:fileName = "testcases/test_4.txt";
         5:fileName = "testcases/test_5.txt";
         6:fileName = "testcases/test_6.txt";
+        7:fileName = "testcases/test_7.txt";
       endcase
       $display(fileName);
       // reset
@@ -366,8 +367,8 @@ module Testbench;
         total_score += 25;
       end
       if (testing > `NUM_OF_TEST_R_TYPE_ADDI + `NUM_OF_TEST_I_TYPE_JUMP) begin
-        if (wa == 0) score += 15;
-        total_score += 15;
+        if (wa == 0) score += 10;
+        total_score += 10;
       end
 
     end

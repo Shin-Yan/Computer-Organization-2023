@@ -23,13 +23,13 @@ module Simple_Single_CPU (
 
   //Internal Signals
     wire [32-1:0] instr, PC_i, PC_o, PC_add1, PC_add2, signextend, PC_branch, Write_data, Read_data1, Read_data2, Zero_filled, ALU_input2;
-    wire [32-1:0] ALU_result, Shifter_num, Shifter_result, RDdata_src, DM_readData;
+    wire [32-1:0] ALU_result, Shifter_num, Shifter_result, RDdata_src, DM_readData, PC_j;
     wire [5-1:0] WriteReg_addr;
     wire [4-1:0] ALU_operation;
     wire [3-1:0] ALUOp;
     wire [2-1:0] FURslt, RegDst, MemtoReg;
     wire Jump, ALUSrc, Branch, BranchType, MemWrite, RegWrite, MemRead, Zero, BranchTaken, leftRight, shiftOff;
-    wire overflow;
+    wire overflow, Jumpra;
 
   //modules
   Program_Counter PC (
@@ -75,6 +75,15 @@ module Simple_Single_CPU (
       .data0_i (PC_branch),
       .data1_i ({PC_add1[31:28], instr[25:0], 2'b00}),
       .select_i(Jump),
+      .data_o  (PC_j)
+  );
+
+  Mux2to1 #(
+      .size(32)
+  ) Mux_jr (
+      .data0_i (PC_j),
+      .data1_i (Read_data1),
+      .select_i(Jumpra),
       .data_o  (PC_i)
   );
 
@@ -125,7 +134,8 @@ module Simple_Single_CPU (
       .ALU_operation_o(ALU_operation),
       .FURslt_o(FURslt),
       .leftRight_o(leftRight),
-      .ShiftOff_o(shiftOff)
+      .ShiftOff_o(shiftOff),
+      .Jumpra_o(Jumpra)
   );
 
   Sign_Extend SE (

@@ -4,7 +4,8 @@ module ALU_Ctrl (
     ALU_operation_o,
     FURslt_o,
     leftRight_o,
-    ShiftOff_o
+    ShiftOff_o,
+    Jumpra_o
 );
 
   //I/O ports
@@ -15,12 +16,14 @@ module ALU_Ctrl (
   output [2-1:0] FURslt_o;
   output leftRight_o;
   output ShiftOff_o;
+  output Jumpra_o;
 
   //Internal Signals
   wire [4-1:0] ALU_operation_o;
   wire [2-1:0] FURslt_o;
   wire leftRight_o;
   wire ShiftOff_o;
+  wire Jumpra_o;
 
   //Main function
   /*your code here*/
@@ -47,5 +50,6 @@ module ALU_Ctrl (
                     || funct_i == 6'b101000)) ? 2'b01:2'b00; // shift
 
   assign ShiftOff_o = (funct_i == 6'b010010 || funct_i == 6'b100010)? 1'b0:1'b1; //sll or srl
+  assign Jumpra_o = (ALUOp_i == 3'b010 && funct_i == 6'b000001)? 1'b1:1'b0;
 
 endmodule
